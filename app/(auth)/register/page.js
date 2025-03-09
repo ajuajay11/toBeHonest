@@ -1,5 +1,5 @@
 export default async function Page() {
-  const res = await fetch('https://to-be-honest.vercel.app/pages/api/chroniclesOfEveryOne/')
+  const res = await fetch('http://localhost:3000/pages/api/chroniclesOfEveryOne/')
 
   // Check for successful response
   if (!res.ok) {

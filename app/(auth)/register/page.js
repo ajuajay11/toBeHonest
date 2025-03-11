@@ -1,5 +1,7 @@
 export default async function Page() {
-  const res = await fetch('http://localhost:3000/pages/api/chroniclesOfEveryOne/')
+  const res = await fetch('/api/chroniclesOfEveryOne/',{
+    cache: 'no-cache'
+  })
 
   // Check for successful response
   if (!res.ok) {
@@ -8,7 +10,7 @@ export default async function Page() {
   }
 
   // Try parsing the response to JSON
-  let posts = {}
+  let posts = []
   try {
     posts = await res.json()
   } catch (error) {
@@ -18,8 +20,8 @@ export default async function Page() {
 
   return (
     <ul>
-      {posts.darkTruths?.map((post) => (
-        <li key={post.yourStoryTitle}>{post.chroniclesOfYou}</li>
+      {posts?.darkTruths?.map((post, index) => (
+        <li key={index}>{post.id}</li>
       ))}
     </ul>
   )

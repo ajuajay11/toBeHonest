@@ -39,7 +39,7 @@ export async function GET(req) {
             responseData = responseData.slice(0, 10);
         }
 
-        return NextResponse.json({ message: "Success", darkTruths: responseData }, { status: 200 });
+        return NextResponse.json({ message: "Success", darkTruths: responseData}, { status: 200 });
     } catch (error) {
         console.error(error);
         return NextResponse.json({ message: "Server error", error: error.message }, { status: 500 });

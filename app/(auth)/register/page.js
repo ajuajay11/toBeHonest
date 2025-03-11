@@ -1,38 +1,25 @@
 export default async function Page() {
-  const res = await fetch('http://localhost:3000/pages/api/chroniclesOfEveryOne/')
-
-  // Check for successful response
-  if (!res.ok) {
-    console.error('Failed to fetch:', res.status, res.statusText);
-    return <div>Error fetching data</div>;
-  }
-
-  // Try parsing the response to JSON
-  let posts = {}
   try {
-    posts = await res.json()
+    const res = await fetch('http://localhost:3000/api/chroniclesOfEveryOne', {
+      cache: 'no-store',
+    });
+
+    if (!res.ok) {
+      console.error('Failed to fetch:', res.status, res.statusText);
+      return <div>Error fetching data</div>;
+    }
+
+    const posts = await res.json();
+
+    return (
+      <ul>
+        {posts.darkTruths?.map((post) => (
+          <li key={post.yourStoryTitle}>{post.chroniclesOfYou}</li>
+        ))}
+      </ul>
+    );
   } catch (error) {
-    console.error('Error parsing JSON:', error)
-    return <div>Error parsing data</div>
+    console.error('Error:', error);
+    return <div>Something went wrong</div>;
   }
-
-  return (
-    <ul>
-      {posts.darkTruths?.map((post) => (
-        <li key={post.yourStoryTitle}>{post.chroniclesOfYou}</li>
-      ))}
-    </ul>
-  )
 }
-
- 
-
-// export default function page() {
-//   return (
-//     <>
-    
-//     hello</>
-//   )
-// }
-
- 

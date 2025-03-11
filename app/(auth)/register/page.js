@@ -1,7 +1,5 @@
 export default async function Page() {
-  const res = await fetch('/api/chroniclesOfEveryOne/',{
-    cache: 'no-cache'
-  })
+  const res = await fetch('/api/chroniclesOfEveryOne/')
 
   // Check for successful response
   if (!res.ok) {
@@ -10,7 +8,7 @@ export default async function Page() {
   }
 
   // Try parsing the response to JSON
-  let posts = []
+  let posts = {}
   try {
     posts = await res.json()
   } catch (error) {

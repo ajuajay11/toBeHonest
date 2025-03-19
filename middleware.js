@@ -1,10 +1,21 @@
-import { NextResponse } from 'next/server'
+import { NextResponse } from "next/server";
+// import Cookies from 'js-cookie';
 
+ 
 export function middleware(request) {
-    return NextResponse.redirect(new URL('/home', request.url))
+  
+ const token = request.cookies.get('token')?.value; // Access the token from cookies
+  if (token) {
+    if (["/login", "/register"].includes(request.nextUrl.pathname) ) {
+      return NextResponse.redirect(new URL("/", request.url));
+    }
   }
-   
-  // See "Matching Paths" below to learn more
-  export const config = {
-    matcher: '/about/:path*',
+  if (token) {
+    return NextResponse.next();
   }
+  if (!token) {
+    if (["/dashboard"].includes(request.nextUrl.pathname)) {
+      return NextResponse.redirect(new URL("/login", request.url));
+    }
+  }
+}

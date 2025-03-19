@@ -1,9 +1,29 @@
-import styles from "./page.module.css";
 
-export default function Home() {
-  return (
-    <div className={styles.page}>
-      hello
-    </div>
-  );
+import Logout from './components/logout'
+export default async function Home() {
+  try {
+    const res = await fetch('http://localhost:3000/api/chroniclesOfEveryOne', {
+      cache: 'no-store',
+    });
+
+    if (!res.ok) {
+      console.error('Failed to fetch:', res.status, res.statusText);
+      return <div>Error fetching data</div>;
+    }
+
+    const posts = await res.json();
+
+    return (
+      <>
+      <ul>
+        {posts.darkTruths?.map((post) => (
+          <li key={post.yourStoryTitle}>{post.chroniclesOfYou}</li>
+        ))}
+      </ul>
+      <Logout/>
+      </>
+    );
+  } catch (error) {
+    return <div>Something went wrong</div>;
+  }
 }

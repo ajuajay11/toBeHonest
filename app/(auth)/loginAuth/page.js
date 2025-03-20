@@ -11,7 +11,16 @@ export default function Register() {
   const handleSubmit= async (e)=> {
     e.preventDefault();
     try {
-      const response = await axios.post(`/api/user/login/`, loginData);
+      const response = await axios.post(
+         `https://to-be-honest.vercel.app/api/user/login/`,
+         loginData,
+         {
+           headers: {
+             "Content-Type": "application/json",
+             "Host": "to-be-honest.vercel.app",
+           },
+         }
+       );
       console.log(response);
       if (response) {
         Cookies.set('token', response.data.user.token, { expires: 12 });

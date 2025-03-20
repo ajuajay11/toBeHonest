@@ -2,7 +2,7 @@
 import Logout from './components/logout'
 export default async function Home() {
   try {
-    const res = await fetch('https://to-be-honest.vercel.app/api/chroniclesOfEveryOne', {
+    const res = await fetch('/api/chroniclesOfEveryOne', {
       cache: 'no-store',
     });
 

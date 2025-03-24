@@ -30,6 +30,8 @@ export async function POST(req) {
       return NextResponse.json({ message: "No token found" }, { status: 401 });
     }
     const userData = await verifyToken(token);
+    console.log(userData,'7998');
+    
     const user = await User.findById(userData.userId);
     console.log(user,'user================================');
     
